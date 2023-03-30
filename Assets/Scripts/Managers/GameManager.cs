@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,12 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private QuizManager _quizManager;
     [SerializeField] private GameObject _gameScreen;
     [SerializeField] private GameObject _endScreen;
-    [SerializeField] private GameObject _eventSystem;
+    [SerializeField] private InputSystemUIInputModule _inputUIAndroid;
 
 
     [Header("VR UI Elements")]
-    [SerializeField] private GameObject _gameScreenVR;
-    [SerializeField] private GameObject _endScreenVR;
     [SerializeField] private GameObject _xrSetup;
 
     private static GameManager _instance;
@@ -46,10 +45,10 @@ public class GameManager : MonoBehaviour
 
     private void SwitchVRUI()
     {
-        _eventSystem.SetActive(false);
+        _inputUIAndroid.enabled = false;
         _xrSetup.SetActive(true);
-        _gameScreen = _gameScreenVR;
-        _endScreen = _endScreenVR;
+        ChangeUIPosition(_gameScreen);
+        ChangeUIPosition(_endScreen);
     }
 
     private void DisplayEndScreen()
@@ -57,5 +56,14 @@ public class GameManager : MonoBehaviour
         _gameScreen.SetActive(false);
         _endScreen.SetActive(true);
     }
+
+    private void ChangeUIPosition(GameObject _screen)
+    {
+        _screen.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+        _screen.GetComponent<RectTransform>().localPosition = new Vector3(0,1,2);
+        _screen.GetComponent<RectTransform>().localScale = new Vector3(0.001f,0.001f,0.001f);
+    }
+
+
 
 }
