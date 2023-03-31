@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         _screen.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         _screen.GetComponent<RectTransform>().localPosition = new Vector3(0,1,2);
         _screen.GetComponent<RectTransform>().localScale = new Vector3(0.001f,0.001f,0.001f);
+        //_screen.GetComponent<RectTransform>().anchorMin = 
     }
 
 
